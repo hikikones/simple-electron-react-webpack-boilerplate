@@ -1,5 +1,3 @@
-# Lazycard
-
 ## Setup
 
 Install [Node](https://nodejs.org/en/). If your project wants to use native modules, then they need to be compiled. If not, ignore the following instructions on compiling.
