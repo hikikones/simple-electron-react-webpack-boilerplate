@@ -1,4 +1,4 @@
-## Setup
+# Setup
 
 Install [Node](https://nodejs.org/en/). If your project wants to use native modules, then they need to be compiled. If not, ignore the following instructions on compiling.
 
@@ -16,7 +16,7 @@ It will take some time, so wait patiently.
 
 ### Compiling on Linux
 
-## Usage
+# Usage
 
 Open a terminal and `cd` into the project root folder where the `package.json` file is. Install all dependencies with
 
