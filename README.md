@@ -28,10 +28,10 @@ If you have a native module and get an error about some Python function not work
 
 The following commands are used for development and building:
 
-| Command               | Description                                                                                                                      |
-| --------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `npm run dev`         | Builds the project in development mode and opens it in Electron.                                                                 |
-| `npm run build`       | Builds the project in production mode.                                                                                           |
-| `npm run pack`        | Generates a package directory `dist` without packaging it so you can open the program without installing it. Useful for testing. |
-| `npm run dist`        | Generates a package in distributable format.                                                                                     |
-| `npm run postinstall` | Compiles native dependencies. This is automatically run when you install all dependencies with `npm install`.                    |
+| Command               | Description                                                                                                                                |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `npm run dev`         | Builds the project in development mode and opens it in Electron.                                                                           |
+| `npm run build`       | Builds the project in production mode.                                                                                                     |
+| `npm run pack`        | Generates a package directory in `dist` folder without packaging it so you can open the program without installing it. Useful for testing. |
+| `npm run dist`        | Generates a package in distributable format in the `dist` folder.                                                                          |
+| `npm run postinstall` | Compiles native dependencies. This is automatically run when you install all dependencies with `npm install`.                              |
