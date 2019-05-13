@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const nodeExternals = require("webpack-node-externals");
 
 const BUILD_DIR = path.resolve(__dirname, "build");
 const APP_DIR = path.resolve(__dirname, "src");
@@ -7,9 +8,7 @@ const APP_DIR = path.resolve(__dirname, "src");
 const jsRule = {
   test: /\.(jsx?)$/,
   exclude: /node_modules/,
-  use: {
-    loader: "babel-loader"
-  },
+  use: "babel-loader",
   resolve: {
     extensions: [".js", ".jsx"]
   }
@@ -17,11 +16,7 @@ const jsRule = {
 
 const htmlRule = {
   test: /\.html$/,
-  use: [
-    {
-      loader: "html-loader"
-    }
-  ]
+  use: "html-loader"
 };
 
 const cssRule = {
@@ -34,6 +29,13 @@ const htmlPlugin = new HtmlWebPackPlugin({
   filename: "index.html"
 });
 
+const nodeSettings = {
+  __dirname: false,
+  __filename: false
+};
+
+const externalsList = [nodeExternals()];
+
 const mainConfig = {
   target: "electron-main",
   entry: APP_DIR + "/main.js",
@@ -44,9 +46,8 @@ const mainConfig = {
   module: {
     rules: [jsRule]
   },
-  node: {
-    __dirname: false
-  }
+  node: nodeSettings,
+  externals: externalsList
 };
 
 const rendererConfig = {
@@ -59,7 +60,9 @@ const rendererConfig = {
   module: {
     rules: [jsRule, htmlRule, cssRule]
   },
-  plugins: [htmlPlugin]
+  plugins: [htmlPlugin],
+  node: nodeSettings,
+  externals: externalsList
 };
 
 module.exports = [mainConfig, rendererConfig];
