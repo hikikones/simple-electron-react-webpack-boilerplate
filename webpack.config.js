@@ -52,7 +52,11 @@ const mainConfig = {
     rules: [jsRule]
   },
   node: nodeSettings,
-  externals: externalsList
+  externals: externalsList,
+  devServer: {
+    contentBase: BUILD_DIR,
+    port: 9000
+  }
 };
 
 const rendererConfig = {

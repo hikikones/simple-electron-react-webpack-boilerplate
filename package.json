@@ -4,10 +4,13 @@
   "description": "",
   "main": "./build/main.js",
   "scripts": {
-    "dev": "webpack --mode development && electron .",
-    "build": "webpack --mode production",
-    "pack": "npm run build && electron-builder --dir",
-    "dist": "npm run build && electron-builder",
+    "build:dev": "webpack --mode development",
+    "build:prod": "webpack --mode production",
+    "start": "cross-env NODE_ENV=development electron .",
+    "server": "webpack-dev-server --mode development",
+    "dev": "npm run build:dev && concurrently -s first -k \"npm run server\" \"npm run start\"",
+    "pack": "npm run build:prod && electron-builder --dir",
+    "dist": "npm run build:prod && electron-builder",
     "postinstall": "electron-builder install-app-deps"
   },
   "keywords": [],
@@ -24,6 +27,8 @@
     "@babel/preset-env": "^7.4.4",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.5",
+    "concurrently": "^4.1.0",
+    "cross-env": "^5.2.0",
     "css-loader": "^2.1.1",
     "electron": "^5.0.1",
     "electron-builder": "^20.40.2",
@@ -32,6 +37,7 @@
     "style-loader": "^0.23.1",
     "webpack": "^4.31.0",
     "webpack-cli": "^3.3.2",
+    "webpack-dev-server": "^3.3.1",
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
