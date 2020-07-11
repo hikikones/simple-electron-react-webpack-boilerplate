@@ -68,8 +68,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_info.outputs.upload_url }}
-          asset_path: ./dist/Lazycard-${{ steps.release_info.outputs.upload_tag }}.exe
-          asset_name: Lazycard-${{ steps.release_info.outputs.upload_tag }}.exe
+          asset_path: ./dist/app-${{ steps.release_info.outputs.upload_tag }}.exe
+          asset_name: app-${{ steps.release_info.outputs.upload_tag }}.exe
           asset_content_type: application
 
   build_on_macos:
@@ -106,8 +106,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_info.outputs.upload_url }}
-          asset_path: ./dist/Lazycard-${{ steps.release_info.outputs.upload_tag }}.dmg
-          asset_name: Lazycard-${{ steps.release_info.outputs.upload_tag }}.dmg
+          asset_path: ./dist/app-${{ steps.release_info.outputs.upload_tag }}.dmg
+          asset_name: app-${{ steps.release_info.outputs.upload_tag }}.dmg
           asset_content_type: application
 
   build_on_ubuntu:
@@ -144,8 +144,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_info.outputs.upload_url }}
-          asset_path: ./dist/Lazycard-${{ steps.release_info.outputs.upload_tag }}.AppImage
-          asset_name: Lazycard-${{ steps.release_info.outputs.upload_tag }}.AppImage
+          asset_path: ./dist/app-${{ steps.release_info.outputs.upload_tag }}.AppImage
+          asset_name: app-${{ steps.release_info.outputs.upload_tag }}.AppImage
           asset_content_type: application
       - name: Upload Ubuntu Release Snap File
         uses: actions/upload-release-asset@v1
@@ -153,6 +153,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_info.outputs.upload_url }}
-          asset_path: ./dist/Lazycard-${{ steps.release_info.outputs.upload_tag }}.snap
-          asset_name: Lazycard-${{ steps.release_info.outputs.upload_tag }}.snap
+          asset_path: ./dist/app-${{ steps.release_info.outputs.upload_tag }}.snap
+          asset_name: app-${{ steps.release_info.outputs.upload_tag }}.snap
           asset_content_type: application
