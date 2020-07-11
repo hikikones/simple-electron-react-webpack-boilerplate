@@ -1,76 +1,74 @@
-const path = require("path");
-const HtmlWebPackPlugin = require("html-webpack-plugin");
-const nodeExternals = require("webpack-node-externals");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const NodeExternals = require("webpack-node-externals");
 
 const BUILD_DIR = path.resolve(__dirname, "build");
 const APP_DIR = path.resolve(__dirname, "src");
 
-const jsRule = {
-  test: /\.(jsx?)$/,
-  exclude: /node_modules/,
-  use: {
-    loader: "babel-loader",
-    options: {
-      presets: ["@babel/preset-env", "@babel/preset-react"]
+const tsRule = {
+    test: /\.ts(x?)$/,
+    exclude: /node_modules/,
+    use: 'ts-loader',
+    resolve: {
+        extensions: [".ts", ".tsx"]
     }
-  },
-  resolve: {
-    extensions: [".js", ".jsx"]
-  }
-};
-
-const htmlRule = {
-  test: /\.html$/,
-  use: "html-loader"
 };
 
 const cssRule = {
-  test: /\.css$/,
-  use: ["style-loader", "css-loader"]
+    test: /\.css$/,
+    use: ["style-loader", "css-loader"]
 };
 
-const htmlPlugin = new HtmlWebPackPlugin({
-  template: APP_DIR + "/index.html",
-  filename: "index.html"
-});
+const fileRule = {
+    test: /\.(png|jpe?g|gif|svg|ttf|woff(2)?|eot)$/,
+    use: "file-loader"
+};
 
 const nodeSettings = {
-  __dirname: false,
-  __filename: false
+    __dirname: false,
+    __filename: false
 };
 
-const externalsList = [nodeExternals()];
+const externalsList = [NodeExternals()];
 
 const mainConfig = {
-  target: "electron-main",
-  entry: APP_DIR + "/main.js",
-  output: {
-    filename: "main.js",
-    path: BUILD_DIR
-  },
-  module: {
-    rules: [jsRule]
-  },
-  node: nodeSettings,
-  externals: externalsList,
-  devServer: {
-    contentBase: BUILD_DIR
-  }
+    target: 'electron-main',
+    entry: path.resolve(APP_DIR, "main", "main.ts"),
+    output: {
+        path: BUILD_DIR,
+        filename: "main.js"
+    },
+    module: {
+        rules: [tsRule]
+    },
+    node: nodeSettings,
+    externals: externalsList
 };
 
 const rendererConfig = {
-  target: "electron-renderer",
-  entry: APP_DIR + "/renderer.js",
-  output: {
-    filename: "renderer.js",
-    path: BUILD_DIR
-  },
-  module: {
-    rules: [jsRule, htmlRule, cssRule]
-  },
-  plugins: [htmlPlugin],
-  node: nodeSettings,
-  externals: externalsList
+    target: 'electron-renderer',
+    entry: path.resolve(APP_DIR, "renderer", "renderer.tsx"),
+    output: {
+        path: BUILD_DIR,
+        filename: "renderer.js"
+    },
+    module: {
+        rules: [tsRule, cssRule, fileRule]
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: path.resolve(APP_DIR, "renderer", "index.html"),
+            filename: "index.html"
+        }),
+        new CopyWebpackPlugin({
+            patterns: [
+              { from: './static', to: BUILD_DIR },
+            ],
+        }),
+    ],
+    node: nodeSettings,
+    externals: externalsList
 };
 
 module.exports = [mainConfig, rendererConfig];
